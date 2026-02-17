@@ -36,7 +36,7 @@ export default function AdminLogin() {
             setLoading(false);
         }
     };
-
+console.log("API URL =", process.NEXT_PUBLIC_API_BASE_URL);
     return (
         <main>
             <header style={{ marginBottom: "2rem" }}>
@@ -78,3 +78,4 @@ export default function AdminLogin() {
         </main>
     );
 }
+
