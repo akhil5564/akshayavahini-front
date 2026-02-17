@@ -17,7 +17,7 @@ export default function Register() {
 
     const upiId = "zorokartindia2@fbl";
     const upiName = "Akshayavahini";
-    const amount = 999;
+    const amount = 1998;
 
     const upiLink = `upi://pay?pa=${upiId}&pn=${upiName}&am=${amount}&cu=INR&tn=Zorokart Registration`;
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiLink)}`;
