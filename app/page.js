@@ -9,9 +9,9 @@ import { faChevronLeft, faChevronRight, faPaperPlane } from "@fortawesome/free-s
 const slides = [
   {
     id: 1,
-    title: "അമ്മയുടെ കൈപ്പുണ്യം, നിങ്ങളുടെ വാതിൽക്കൽ.",
+    title: "അമ്മയുടെ <span style='color: #4CAF50'>കൈപ്പുണ്യം</span>, നിങ്ങളുടെ വാതിൽക്കൽ.",
     description: "ശുദ്ധവും മായംചേർക്കാത്തതുമായ വീട്ടുഭക്ഷണം സമീപവാസികളിൽ നിന്ന്",
-    image: "/images/web 1.png",
+    image: "/images/web1.png",
     // buttons: [
     //   { label: "Register", href: "/register", type: "primary" },
     //   { label: "Learn More", href: "#about", type: "secondary" }
@@ -19,18 +19,27 @@ const slides = [
   },
   {
     id: 2,
-    title: "വീട്ടിലെ ഭക്ഷണം പോലെ സുരക്ഷിതം.",
+    title: "വീട്ടിലെ ഭക്ഷണം പോലെ <span style='color: #4CAF50'>സുരക്ഷിതം.</span>",
     description: "ശുചിത്വത്തോടെ തയ്യാറാക്കിയ ചൂടേറിയ ഭക്ഷണം – വിശ്വാസത്തോടെ",
-    image: "/images/web 2.png",
+    image: "/images/web2.png",
     // buttons: [
     //   { label: "Read More About Us", href: "#about", type: "primary" }
     // ]
   },
   {
     id: 3,
-    title: "വീട്ടമ്മമാരുടെ പാചകമികവ്, സ്ഥിരവരുമാനമായി.",
+    title: "വീട്ടമ്മമാരുടെ <span style='color: #4CAF50'>പാചകമികവ്</span>, സ്ഥിരവരുമാനമായി.",
     description: "സമൂഹകേന്ദ്രീകൃതമായൊരു ഭക്ഷണ വിപ്ലവം",
-    image: "/images/web 3.png",
+    image: "/images/web3.png",
+    // buttons: [
+    //   { label: "Register", href: "/register", type: "primary" }
+    // ]
+  },
+  {
+    id: 4,
+    title: "<span style='color: #4CAF50'>സ്നേഹത്തോടെ</span> പാകം ചെയ്തത്, സന്തോഷത്തോടെ കഴിക്കാം.",
+    description: "അമ്മയുടെ കൈകളിൽ നിന്നുള്ള സ്വാദിഷ്ടമായ അനുഭവം",
+    image: "/images/web4.png",
     buttons: [
       { label: "Register", href: "/register", type: "primary" }
     ]
@@ -70,122 +79,259 @@ export default function Home() {
     <main className="home-main">
       <section className="carousel-section">
         <div className="carousel-container">
-          {slides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`carousel-slide ${index === currentSlide ? "active" : ""}`}
-            >
-              <div className="carousel-text-area">
-                <div className="text-content">
-                  <h1>{slide.title}</h1>
-                  <p>{slide.description}</p>
-                  {slide.buttons?.length > 0 && (
-                    <div className="carousel-actions">
-                      {slide.buttons.map((btn, bIdx) => (
-                        <a key={bIdx} href={btn.href}>
-                          <button className={`carousel-btn ${btn.type}`}>
-                            {btn.label}
-                          </button>
-                        </a>
-                      ))}
-                    </div>
-                  )}
-
-                </div>
-
-                <div className="carousel-nav">
-                  <button onClick={prevSlide} className="nav-arrow" aria-label="Previous Slide">
-                    <FontAwesomeIcon icon={faChevronLeft} />
-                  </button>
-                  <button onClick={nextSlide} className="nav-arrow" aria-label="Next Slide">
-                    <FontAwesomeIcon icon={faChevronRight} />
-                  </button>
-                </div>
-              </div>
-
-              <div className="carousel-image-area">
-                <div className="image-wrapper">
+          <div className="carousel-slides-wrapper">
+            {slides.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={`carousel-slide ${index === currentSlide ? "active" : ""}`}
+              >
+                <div className="carousel-image-area">
                   <Image
                     src={slide.image}
                     alt={slide.title}
                     fill
-                    style={{ objectFit: "cover" }}
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: slide.id === 1 ? "center 25%" : "center"
+                    }}
                     priority
                   />
+                  <div className="carousel-overlay"></div>
+                </div>
+
+                <div className="carousel-content-wrapper">
+                  <div className="carousel-text-area">
+                    <div className="text-content">
+                      <h1 dangerouslySetInnerHTML={{ __html: slide.title }}></h1>
+                      <p>{slide.description}</p>
+                      {slide.buttons?.length > 0 && (
+                        <div className="carousel-actions">
+                          {slide.buttons.map((btn, bIdx) => (
+                            <a key={bIdx} href={btn.href}>
+                              <button className={`carousel-btn ${btn.type || 'primary'}`}>
+                                {btn.label}
+                              </button>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
+            ))}
+          </div>
+
+          <div className="carousel-controls">
+            <div className="carousel-nav">
+              <button onClick={prevSlide} className="nav-arrow" aria-label="Previous Slide">
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+              <button onClick={nextSlide} className="nav-arrow" aria-label="Next Slide">
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
             </div>
-          ))}
+          </div>
+
+          <div className="carousel-dots">
+            {slides.map((_, dotIdx) => (
+              <button
+                key={dotIdx}
+                className={`dot ${dotIdx === currentSlide ? "active" : ""}`}
+                onClick={() => setCurrentSlide(dotIdx)}
+                aria-label={`Go to slide ${dotIdx + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* about */}
-      <section id="about" className="section">
-        <article className="about-content">
-          <h1>About Akshayavahini</h1>
-          <p>
-            Akshayavahini is bringing the 'Mother’s touch' to food delivery. While we prepare for our grand opening, we invite passionate home cooks to join our community early. Start your journey toward financial independence now so you’re ready to serve your first hot, home-cooked meal on day one.
-          </p>
-          <h2>Our Mission</h2>
-          <p>
-            To provide a seamless, clutter-free platform where quality meets simplicity. Every pixel
-            in Akshayavahini is carefully placed to ensure you spend less time navigating and more time
-            discovering.
-          </p>
-        </article>
+      {/* about redesign */}
+      <section id="about" className="about-section">
+        <div className="about-container">
+
+          {/* About Us Row */}
+          <div className="about-row">
+            <div className="about-image-group">
+              <Image src="/images/Abt1.png" alt="About Us" fill style={{ objectFit: 'contain', objectPosition: 'left' }} />
+            </div>
+
+            <div className="about-text-group">
+              <h1>About us</h1>
+              <p>
+                വീട്ടമ്മമാരുടെ പാചക അഭിരുചികളെയും അവരുടെ പ്രത്യേക രുചിക്കൂട്ടുകളെയും സുരക്ഷിതവും സ്ഥിരവുമായ വരുമാനമാക്കി മാറ്റുന്നതിനായി സമൂഹകേന്ദ്രീകൃതമായ കൂട്ടായ്മയിലൂടെ രൂപകല്പന ചെയ്ത ഒരു ഫുഡ്‌ ഡെലിവറി പ്ലാറ്റ്ഫോം ആണ് അക്ഷയവാഹിനി. ഉപഭോക്താക്കൾക്ക് അവരുടെ സമീപ പ്രദേശങ്ങളിൽ നിന്നുള്ളതും മായംചേർക്കാത്തതും ശുചിത്വമാർന്നതും ചൂടേറിയതുമായ വീട്ടുഭക്ഷണം നൽകുകയാണ് ഞങ്ങളുടെ പ്രധാനലക്ഷ്യം. പാചകറാണിമാരായ പ്രാദേശിക വീട്ടമ്മമാരെയും സമീപത്തുള്ള ഉപഭോക്താക്കളെയും അക്ഷയവാഹിനിയിലൂടെ ബന്ധിപ്പിക്കുന്നതിനാൽ ഞങ്ങൾ വിളമ്പുന്ന ഓരോ ഭക്ഷണത്തോടൊപ്പം ഉപഭോക്താക്കളിൽ പുതുമ നിറഞ്ഞ അനുഭവവും &apos;അമ്മയുടെ കൈകളാൽ.
+              </p>
+              <Link href="/About" className="about-outline-btn">
+                Read more about us &gt;
+              </Link>
+            </div>
+          </div>
+
+          {/* Mission Row */}
+          <div className="about-row reverse">
+            <div className="about-image-group">
+              <Image src="/images/Abt2.png" alt="Mission" fill style={{ objectFit: 'contain' }} />
+            </div>
+
+            <div className="about-text-group">
+              <h2>മിഷൻ</h2>
+              <p>
+                സാമ്പത്തിക ബുദ്ധിമുട്ട് അനുഭവിക്കുന്ന വീട്ടമ്മമാർക്ക് ഒരു കൈത്താങ്ങാവുകയും, അവർക്ക് മികച്ച സാമ്പത്തികഭദ്രതയും സുരക്ഷിതത്വവും നൽകുകയെന്നതും ഞങ്ങളുടെ പ്രധാനദൗത്യമാണ്. ശുദ്ധവും ചൂടേറിയതും സ്നേഹനിബിഡവുമായ രുചികരമായ വീട്ടുഭക്ഷണം ഉപഭോക്താക്കൾക്ക് ഉറപ്പുവരുത്തുകയെന്നതും ഞങ്ങളുടെ ദൗത്യമാണ്.
+              </p>
+              <Link href="/About" className="about-outline-btn">
+                Read more about us &gt;
+              </Link>
+            </div>
+          </div>
+
+          <div className="about-table">
+            {/* Card 1 */}
+            <div className="about-card">
+              <div className="about-card-header">
+                <h3>ഞങ്ങളുടെ പ്രത്യേകതകൾ</h3>
+              </div>
+              <div className="about-card-body">
+                <strong>ഭക്ഷണസുരക്ഷയും ഗുണനിലവാരവും ഉറപ്പുവരുത്തുന്നു.</strong>
+                <p>
+                  ഫ്രോസൺ അല്ലെങ്കിൽ പഴകിയ ഭക്ഷണം ഇല്ല (കാരണം വ്യവസായിക അടിസ്ഥാനത്തിൽ അല്ലാതെ വീട്ടമ്മമാരുടെ അടുക്കളയിലാണ് പാചകം)
+                </p>
+                <p>
+                  ശുചിത്വമുള്ള വീട്ടടുക്കളകളിൽ നിന്ന് സുരക്ഷിതവും ഗുണനിലവാരമുള്ളതുമായ കണ്ടെയ്നറുകളിൽ (steel/foodgrade) ഡെലിവറി ചെയ്യുന്നതിനാൽ ഭക്ഷണം ചൂടോടെയും സുരക്ഷിതമായും നിലനിൽക്കുന്നു. ഇത് പരിസ്ഥിതിസൗഹൃദവും സുരക്ഷിതവും സുസ്ഥിരവുമാണ്. കൂടാതെ, പ്ലാസ്റ്റിക് ഉപയോഗവും ഭക്ഷ്യമാലിനീകരണവും ഒഴിവാക്കുന്നു.
+                </p>
+              </div>
+              <Link href="/About" className="about-card-btn">Read more</Link>
+            </div>
+
+            {/* Card 2 */}
+            <div className="about-card">
+              <div className="about-card-header">
+                <h3>ഗുണം</h3>
+              </div>
+              <div className="about-card-body">
+                <strong>ഉത്പാദനക്ഷമത കൂട്ടുന്നു.</strong>
+                <p>
+                  വീട്ടമ്മമാർക്ക് സുസ്ഥിരവരുമാനം, ആരോഗ്യകരമായ ഭക്ഷണശീലം എന്നിവ പ്രോത്സാഹിപ്പിക്കുന്നു.
+                </p>
+                <p>
+                  പ്രാദേശിക ഭക്ഷ്യവ്യവസ്ഥയെ ശക്തിപ്പെടുത്തുന്നു. ഭക്ഷ്യമാലിന്യം കുറയുന്നു. സ്തീകൾ നയിക്കുന്ന മൈക്രോ ബിസിനസ്സുകൾ വളരുന്നതോടൊപ്പം കുടുംബത്തിൽ ചിരി നിലനിർത്തുന്നു.
+                </p>
+              </div>
+              <Link href="/About" className="about-card-btn">Read more</Link>
+            </div>
+
+            {/* Card 3 */}
+            <div className="about-card">
+              <div className="about-card-header">
+                <h3>ബിസിനസ്</h3>
+              </div>
+              <div className="about-card-body">
+                <strong>കമ്മീഷൻ അടിസ്ഥാനത്തിൽ ഉള്ള പ്ലാറ്റ്ഫോം.</strong>
+                <p>
+                  വീട്ടമ്മമാർക്ക് വലിയ നിക്ഷേപം ആവശ്യമില്ല. ദിവസേന/ആഴ്ചതോറുമുള്ള പേയ്മെന്റ് സംവിധാനം.
+                </p>
+                <p>
+                  സുതാര്യമായ വരുമാനത്തെ കാണിക്കുന്ന ഡാഷ്ബോർഡ്. കുറഞ്ഞ ചിലവിൽ പ്രൊമോഷനോടെ കൂടുതൽ വളർച്ച നേടാനുള്ള ആത്മാർത്ഥമായ പിന്തുണ.
+                </p>
+              </div>
+              <Link href="/About" className="about-card-btn">Read more</Link>
+            </div>
+          </div>
+
+        </div>
       </section>
 
       {/* how to register */}
       <section id="how-to-register" className="how-register-section">
-        <h1 className="how-title">How to register</h1>
+        <h1 className="how-title">എങ്ങനെ രജിസ്റ്റർ ചെയ്യാം</h1>
 
         <div className="steps-wrapper">
 
           {/* STEP 1 */}
-          <div className="step-card step-large">
-            <div className="step-content">
-              <div>
-                <h3>Step 1</h3>
-                <p>
-                  Click the Register button to navigate to the screen in the image and fill the form.
-                </p>
-                <p>• Select whether you want to register as a Vendor or an Agent.</p>
-                <p>• Enter your name, email and phone number.</p>
-                <p>• Upload a short video introducing yourself.</p>
-              </div>
-              <Link href="/register">
-                <button className="register-btn">Register</button>
+          <div className="step-card step-row">
+            <div className="step-text-content">
+              <h3 className="step-label">Step 1</h3>
+              <p className="step-description">
+                നിങ്ങളുടെ രജിസ്റ്റർ വെണ്ടർ ആണോ അതോ ഏജന്റ് മുഖേനയാണോ എന്ന് തിരഞ്ഞെടുക്കുക.
+              </p>
+              <Link href="/register" className="step-link">
+                Start &gt;
               </Link>
             </div>
-            <div className="step-image">
-              <Image src="/images/ss3.png" alt="Step 1" width={450} height={400} />
+            <div className="step-image-container">
+              <Image src="/images/RCT1.png" alt="Step 1" fill style={{ objectFit: 'cover' }} />
             </div>
           </div>
 
           {/* STEP 2 */}
-          <div className="step-card">
-            <div className="step-content">
-              <h3>Step 2</h3>
-              <ul className="step-list">
-                <li>Complete the payment via any UPI app</li>
-                <li>Click the Pay via any UPI button if you're using a mobile device.</li>
-                <li>If you're on a desktop, scan the QR code using your UPI app.</li>
-              </ul>
+          <div className="step-card step-col">
+            <div className="step-text-content">
+              <h3 className="step-label">Step 2</h3>
+              <p className="step-description">
+                പെയ്മെന്റ് രീതി തിരഞ്ഞെടുക്കുക
+              </p>
+              <Link href="#how-to-register" className="step-link">
+                Choose &gt;
+              </Link>
+            </div>
+            <div className="step-image-container-vertical">
+              <Image src="/images/RCT2.png" alt="Step 2" fill style={{ objectFit: 'cover' }} />
             </div>
           </div>
 
           {/* STEP 3 */}
-          <div className="step-card">
-            <div className="step-content">
-              <h3>Step 3</h3>
-              <ul className="step-list">
-                <li>Submit the form</li>
-                <li>If you have completed the payment, please check the payment completion and submit</li>
-                <li>If you didn't, leave the checkbox as it is and submit.</li>
+          <div className="step-card step-col">
+            <div className="step-text-content">
+              <h3 className="step-label">Step 3</h3>
+              <p className="step-description">
+                നിങ്ങളുടെ ഇൻവോയ്സ് വിശദാംശങ്ങൾ അടങ്ങിയ വാട്സ്ആപ്പ് സന്ദേശം ഞങ്ങളിൽ നിന്ന് പ്രതീക്ഷിക്കുക.
+              </p>
+              <Link href="#how-to-register" className="step-link">
+                Check &gt;
+              </Link>
+            </div>
+            <div className="step-image-container-vertical">
+              <Image src="/images/RCT3.png" alt="Step 3" fill style={{ objectFit: 'cover' }} />
+            </div>
+          </div>
+        </div>
+
+        {/* Payment Completion Section */}
+        <div className="payment-completion-wrapper">
+          <div className="payment-completion-content">
+            <h1 className="payment-title">പേയ്മെൻ്റ് പൂർത്തിയാക്കുക</h1>
+            <p className="payment-description">
+              ഒരു ചെറിയ ഫീസ് അടച്ചാൽ മതി. അത് പൂർത്തിയായിക്കഴിഞ്ഞാൽ നിങ്ങളുടെ വാട്സ്ആപ്പിലേക്ക് നേരിട്ട് ഒരു ഇൻവോയ്സ് അയയ്ക്കും. കാത്തിരിക്കേണ്ടതില്ല, ആശയക്കുഴപ്പവുമില്ല.
+            </p>
+            <div className="payment-actions">
+              <button className="payment-proceed-btn">Proceed</button>
+              <Link href="#how-to-register" className="payment-continue-link">
+                Continue &gt;
+              </Link>
+            </div>
+          </div>
+          <div className="payment-image-container">
+            <Image src="/images/RCT4.png" alt="Payment Completion" fill style={{ objectFit: 'contain' }} />
+          </div>
+        </div>
+      </section>
+      <section id="why-us">
+        <div className="why-us-section">
+          <h1 className="why-us-title">എന്തിനു ഞങ്ങൾ?</h1>
+          <div className="why-us-content">
+            <div className="why-us-image-group">
+              <Image src="/images/Qst1.png" alt="Why Us" fill style={{ objectFit: 'contain' }} />
+            </div>
+            <div className="why-us-box">
+              <ul>
+                <li>ഫാക്ടറി ഭക്ഷണമല്ല വീട്ടിലെ ഭക്ഷണം മാത്രം</li>
+                <li>സ്ത്രീകളാൽ നയിക്കുന്ന മികച്ച വൃത്തിയുള്ള അടുക്കളകൾ.</li>
+                <li>ചൂടുള്ളതും പുതുമയുള്ളതുമായ ഭക്ഷണം.</li>
+                <li>സുരക്ഷിതമായ ഡെലിവറി, പുനരുപയോഗിക്കാവുന്നതോ പ്രകൃതിസൗഹൃദമോ ആയ കണ്ടെയ്നറുകൾ.</li>
+                <li>വിശ്വാസയോഗ്യമായ പ്രാദേശിക സേവനം.</li>
+                <li>അമ്മമാരുടെ സ്നേഹത്തിൽ കുതിർന്ന വിശ്വാസം</li>
               </ul>
             </div>
           </div>
-
         </div>
       </section>
 
@@ -238,6 +384,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </main>
+    </main >
   );
 }

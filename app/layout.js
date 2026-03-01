@@ -79,6 +79,7 @@
 import "./globals.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import ThemeToggle from "./ThemeToggle";
 import "@fortawesome/fontawesome-svg-core/styles.css"; // Import the CSS
 import { config } from "@fortawesome/fontawesome-svg-core";
 import WhatsappFloat from "./WhatsappFloat";
@@ -96,6 +97,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         {children}
         <WhatsappFloat />
+        <ThemeToggle />
         <Footer />
       </body>
     </html>

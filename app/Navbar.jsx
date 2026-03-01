@@ -72,20 +72,26 @@ export default function Navbar() {
                     <Link href="/" className={isActive("/") ? "active-link" : ""} onClick={closeMenu}>
                         Home
                     </Link>
-
-                    <Link
-                        href="/#about"
-                        className={isActiveSection("about") ? "active-link" : ""}
-                        onClick={closeMenu}
-                    >
-                        About
-                    </Link>
                     <Link
                         href="/#how-to-register"
                         className={isActiveSection("how-to-register") ? "active-link" : ""}
                         onClick={closeMenu}
                     >
                         How to register
+                    </Link>
+                    <Link
+                        href="/gallery"
+                        className={isActiveSection("gallery") ? "active-link" : ""}
+                        onClick={closeMenu}
+                    >
+                        Gallery
+                    </Link>
+                    <Link
+                        href="/#about"
+                        className={isActiveSection("about") ? "active-link" : ""}
+                        onClick={closeMenu}
+                    >
+                        About
                     </Link>
                     <Link
                         href="/#questions"
