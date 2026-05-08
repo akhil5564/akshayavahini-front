@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faCheck, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +15,8 @@ export default function Home() {
   const [isScrolling, setIsScrolling] = useState(false);
   const [scrollRotation, setScrollRotation] = useState(0);
   const [isMissionHovered, setIsMissionHovered] = useState(false);
+  const router = useRouter();
+
 
   useEffect(() => {
     const handleScroll = (e) => {
@@ -98,10 +102,26 @@ export default function Home() {
                     style={{ border: 'none', outline: 'none', fontFamily: "'Poppins', sans-serif" }}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        router.push(email ? `/register?email=${email}` : '/register');
+                      }
+
+                    }}
+
                   />
-                  <button className="bg-[#42A147] text-white font-bold py-3.5 px-14 rounded-10px hover:bg-green-700 transition-all text-xl" style={{ backgroundColor: '#42A147', fontFamily: "'Poppins', sans-serif" }}>
-                    Register
-                  </button>
+                  <Link href={email ? `/register?email=${email}` : "/register"} style={{ textDecoration: 'none' }}>
+                    <button 
+                      className="bg-[#42A147] text-white font-bold py-3.5 px-14 rounded-10px hover:bg-green-700 transition-all text-xl" 
+                      style={{ backgroundColor: '#42A147', fontFamily: "'Poppins', sans-serif" }}
+                    >
+                      Register
+                    </button>
+                  </Link>
+
+
+
+
                 </div>
 
                 <div className="flex flex-col mt-10">
@@ -222,7 +242,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
       {/* ABOUT US - FORCED GREEN BACKGROUND */}
       <section id="about" style={{ backgroundColor: '#42A147' }} className="py-32 text-center text-white relative z-30 reveal">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
@@ -243,15 +263,17 @@ export default function Home() {
                 border: '1px solid white',
                 cursor: 'pointer',
                 transition: 'none',
-                WebkitTapHighlightColor: 'transparent'
+                WebkitTapHighlightColor: 'transparent',
+                whiteSpace: 'nowrap'
               }}
+
             >
               Read more about us &gt;
             </span>
           </Link>
         </div>
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
       {/* RESTORED BOTTOM SECTIONS */}
       <section className="py-32 px-6 lg:px-24 text-center reveal">
         <div className="max-w-5xl mx-auto">
@@ -276,8 +298,10 @@ export default function Home() {
                   border: '1px solid black',
                   cursor: 'pointer',
                   transition: 'none',
-                  WebkitTapHighlightColor: 'transparent'
+                  WebkitTapHighlightColor: 'transparent',
+                  whiteSpace: 'nowrap'
                 }}
+
               >
                 Read more about us &gt;
               </span>
@@ -285,7 +309,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
       <section className="pt-16 pb-32 px-6 lg:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <h2 className="lg:hidden font-bold text-brand-green mb-8 uppercase tracking-widest text-center" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "50px" }}>What Makes us Special</h2>
@@ -318,8 +342,10 @@ export default function Home() {
                     border: '1px solid black',
                     cursor: 'pointer',
                     transition: 'none',
-                    WebkitTapHighlightColor: 'transparent'
+                    WebkitTapHighlightColor: 'transparent',
+                    whiteSpace: 'nowrap'
                   }}
+
                 >
                   Explore Our Vision &gt;
                 </span>
@@ -328,7 +354,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
       <section className="pt-16 pb-32 px-6 lg:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-bold text-brand-green mb-20 text-center uppercase tracking-widest" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "50px" }}>Get to know us</h2>
@@ -358,10 +384,11 @@ export default function Home() {
                   userSelect: 'none',
                   backgroundColor: activeTab === "story" ? "#BDEACD" : "transparent",
                   color: "#42A147", // Brand Green
-                  transform: activeTab === "story" ? "scale(1.05)" : "scale(1)"
+                  transform: activeTab === "story" ? "scale(1.05)" : "scale(1)",
+                  whiteSpace: 'nowrap'
                 }}
               >
-                Benifits {activeTab === "story" && "→"}
+                Benefits {activeTab === "story" && "→"}
               </button>
               <button
                 onClick={() => setActiveTab("values")}
@@ -384,10 +411,11 @@ export default function Home() {
                   userSelect: 'none',
                   backgroundColor: activeTab === "values" ? "#BDEACD" : "transparent",
                   color: "#42A147", // Brand Green
-                  transform: activeTab === "values" ? "scale(1.05)" : "scale(1)"
+                  transform: activeTab === "values" ? "scale(1.05)" : "scale(1)",
+                  whiteSpace: 'nowrap'
                 }}
               >
-                Buisness {activeTab === "values" && "→"}
+                Our Values {activeTab === "values" && "→"}
               </button>
             </div>
 
@@ -449,8 +477,10 @@ export default function Home() {
                       border: '1px solid black',
                       cursor: 'pointer',
                       transition: 'none',
-                      WebkitTapHighlightColor: 'transparent'
+                      WebkitTapHighlightColor: 'transparent',
+                      whiteSpace: 'nowrap'
                     }}
+
                   >
                     Read more &gt;
                   </span>
@@ -465,8 +495,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
-      <section id="how-to-register" className="pt-16 pb-32 px-32 lg:px-24 relative overflow-hidden bg-white reveal">
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
+      <section id="how-to-register" className="pt-16 pb-32 px-6 lg:px-24 relative overflow-hidden bg-white reveal">
+
         {/* Programmatic Background Decoration */}
         <div className="absolute inset-0 pointer-events-none opacity-40">
           <svg className="w-full h-[600px]" viewBox="0 0 1440 600" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: '-50px' }}>
@@ -534,10 +565,11 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
       {/* NEW PAYMENT SECTION */}
       <section id="payment-section" className="w-full bg-brand-green text-white" style={{ paddingTop: '150px', paddingBottom: '80px' }}>
-        <div className="max-w-7xl mx-auto px-12 lg:px-48 text-center">
+        <div className="max-w-7xl mx-auto px-6 lg:px-48 text-center">
+
           <h2 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-widest" style={{ fontFamily: "'Poppins', sans-serif" }}>Complete your payment</h2>
           <p className="text-xl text-white font-regular mb-20 max-w-2xl mx-auto" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "18px" }}>
             Just pay a small fee, and once it's done, an invoice will be sent <br /> directly to your WhatsApp. No waiting, no confusion!
@@ -565,20 +597,21 @@ export default function Home() {
           </div>
 
           <div className="flex flex-row flex-wrap items-center justify-center gap-4 md:gap-10 mt-12">
-            <Link href="/register" className="bg-white text-brand-green px-32 py-5 rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-lg flex items-center justify-center no-underline" style={{ fontFamily: "'Poppins', sans-serif", textDecoration: 'none' }}>
+            <Link href="/register" className="bg-white text-brand-green px-12 md:px-32 py-5 rounded-full font-bold text-lg hover:bg-slate-100 transition-all shadow-lg flex items-center justify-center no-underline whitespace-nowrap" style={{ fontFamily: "'Poppins', sans-serif", textDecoration: 'none' }}>
               Pay Now
             </Link>
+
             <button className="px-6 md:px-8 py-3 md:py-4 text-white font-normal text-lg md:text-xl hover:opacity-80 transition-all border-none bg-transparent whitespace-nowrap" style={{ fontFamily: "'Poppins', sans-serif" }}>
               View Receipt
             </button>
           </div>
         </div>
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
       {/* WHY US SECTION - REDESIGNED TO MATCH MISSION SECTION */}
       <section id="why-us" className="py-32 px-6 lg:px-24 text-center reveal" style={{ backgroundColor: '#ffffff' }}>
         <div className="max-w-5xl mx-auto">
-          <h2 className=" font-bold text-brand-green mb-16 uppercase tracking-widest" style={{ fontFamily: "'Poppins', sans-serif", fontSize: '50px' }}>Why Us</h2>
+          <h2 className="font-bold text-brand-green mb-16 uppercase tracking-widest" style={{ fontFamily: "'Poppins', sans-serif", fontSize: '50px' }}>Why Us</h2>
           <div className="relative rounded-[40px] overflow-hidden mb-16 shadow-2xl border-[12px] border-white mx-auto aspect-video" style={{ maxWidth: '500px', height: "400px" }}>
             <iframe
               className="w-full h-full"
@@ -589,7 +622,7 @@ export default function Home() {
               allowFullScreen
             ></iframe>
           </div>
-          <p className="text-black font-regular py-10 px-24 text-xl leading-relaxed" style={{ fontFamily: "'Poppins', sans-serif", fontSize: '18px' }}>
+          <p className="text-black font-regular py-10 px-10 lg:px-32 text-xl leading-relaxed text-center" style={{ fontFamily: "'Poppins', sans-serif", fontSize: '18px' }}>
             Not Factory-Made, Only Home-Cooked: Authentic, high-quality traditional dishes made just for you.
             Women-Led, Pristine Kitchens: Prepared by homemakers in highly hygienic and clean home environments.
             Fresh and Hot: Every meal is prepared fresh upon order and delivered steaming hot to your doorstep.
@@ -597,10 +630,10 @@ export default function Home() {
             Reliable Local Service: Trustworthy service from the homemakers in your own neighborhood.
             Infused with a Mother's Love: More than just a meal; it is a service built on the care, love, and trust of a mother.
           </p>
-
         </div>
+
       </section>
-      <div className="w-full h-px bg-black opacity-5"></div>
+      <div className="hidden md:block w-full h-px bg-black opacity-5"></div>
       {/* QUESTIONS SECTION */}
       <section id="questions" className="pt-16 pb-32 px-6 lg:px-24 bg-white reveal">
         <div className="max-w-6xl mx-auto">
@@ -616,7 +649,7 @@ export default function Home() {
               <p className="text-lg text-black leading-relaxed font-medium " style={{ fontFamily: "'Poppins', sans-serif" }}>
                 There's a small fee to get started. Once you pay, your invoice goes straight to your WhatsApp. No hidden costs, no surprises
               </p>
-              <div className="mt-12 mx-auto md:mx-0" style={{ borderBottom: '2px solid #000000', width: '200px' }}></div>
+              <div className="hidden md:block mt-12 mx-auto md:mx-0" style={{ borderBottom: '2px solid #000000', width: '200px' }}></div>
             </div>
 
             <div className="pb-16" style={{ paddingLeft: '80px', fontFamily: "'Poppins', sans-serif" }}>
@@ -624,7 +657,7 @@ export default function Home() {
               <p className="text-lg text-black leading-relaxed font-medium" style={{ fontFamily: "'Poppins', sans-serif" }}>
                 After registration and payment are complete, you're in. Customers will find you and orders will come. Start cooking.
               </p>
-              <div className="mt-12 mx-auto md:mx-0" style={{ borderBottom: '2px solid #000000', width: '200px' }}></div>
+              <div className="hidden md:block mt-12 mx-auto md:mx-0" style={{ borderBottom: '2px solid #000000', width: '200px' }}></div>
             </div>
 
             {/* ROW 2 */}
